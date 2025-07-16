@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Mail;
 import model.Util;
 import org.hibernate.Criteria;
@@ -88,10 +89,15 @@ public class SignUp extends HttpServlet {
                 }).start();
                 // send email
 
-            }
+                // http session management
+                HttpSession httpSession = request.getSession();
+                httpSession.setAttribute("email", email);
+                //http session management
 
-            responseObject.addProperty("status", true);
-            responseObject.addProperty("message", "Registration success. Please check your email for the verification code");
+                responseObject.addProperty("status", true);
+                responseObject.addProperty("message", "Registration success. Please check your email for the verification code");
+
+            }
 
             session.close();
 
